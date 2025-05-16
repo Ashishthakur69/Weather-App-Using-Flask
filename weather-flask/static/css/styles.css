@@ -1,0 +1,1211 @@
+body {
+  background: url('https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center fixed;
+  background-size: cover;
+  color: #ffffff; /* Bright white for better contrast on dark background */
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  padding-top: 60px;
+}
+
+/* Dark Mode Adjustments */
+.dark-mode .navbar {
+  background: linear-gradient(135deg, #1E3C72, #0D2C54); /* Deep blue gradient for dark mode */
+}
+
+.dark-mode .btn-light {
+  background: linear-gradient(135deg, #4a708b, #2c527e); /* Softer blue gradient for buttons */
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for depth */
+}
+
+.dark-mode .btn-light:hover {
+  background: linear-gradient(135deg, #3b5a7a, #1e3c72); /* Darker blue gradient on hover */
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(74, 112, 139, 0.7); /* Glowing blue shadow */
+}
+
+.dark-mode .weather-container {
+  background: rgba(30, 60, 114, 0.3); /* Slightly darker blue tint for glass effect */
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+}
+
+.dark-mode .table.forecast-table {
+  background: rgba(30, 60, 114, 0.5); /* Darker blue for table */
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .table.forecast-table th {
+  background: rgba(47, 80, 97, 0.7); /* Slightly lighter blue for headers */
+}
+
+.dark-mode .table.forecast-table tbody tr:hover {
+  background: rgba(47, 80, 97, 0.4); /* Subtle hover effect */
+}
+
+/* Light Mode Adjustments */
+.light-mode {
+  background-image: url('https://images.pexels.com/photos/1304608/pexels-photo-1304608.jpeg?auto=compress&cs=tinysrgb&w=1920') !important;
+  background-size: cover;
+  color: #1e3c72; /* Darker blue for strong contrast on light background */
+  min-height: 100vh;
+  background-position: center center fixed;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.light-mode .navbar {
+  background: linear-gradient(135deg, #a2d9ce, #4a90e2) !important; /* Vibrant teal-to-blue gradient */
+}
+
+.light-mode .navbar-brand {
+  color: #ffffff; /* White for contrast on teal-blue gradient */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Stronger shadow for readability */
+}
+
+.light-mode .btn-light {
+  background: linear-gradient(135deg, #73c6b6, #4a90e2); /* Brighter teal-to-blue gradient for buttons */
+  color: #ffffff; /* White text for better contrast */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* More visible white border */
+}
+
+.light-mode .btn-light:hover {
+  background: linear-gradient(135deg, #5ab9a8, #357abd); /* Even brighter teal-to-blue gradient on hover */
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(90, 185, 168, 0.9); /* Stronger glowing teal shadow */
+}
+
+.light-mode .weather-container {
+  background: rgba(255, 255, 255, 0.6); /* More opaque glass effect for better contrast */
+  color: #1e3c72;
+  border: 1px solid rgba(30, 60, 114, 0.4); /* Darker blue border for stronger contrast */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Softer, larger shadow for depth */
+}
+
+.light-mode .table.forecast-table {
+  background: rgba(255, 255, 255, 0.95); /* Nearly fully opaque white for table */
+  color: #1e3c72;
+  border: 1px solid rgba(30, 60, 114, 0.4);
+}
+
+.light-mode .table.forecast-table th {
+  background: rgba(73, 166, 233, 0.5); /* More opaque light blue for headers */
+  color: #1e3c72;
+}
+
+.light-mode .table.forecast-table tbody tr:hover {
+  background: rgba(73, 166, 233, 0.3); /* More visible light blue hover effect */
+  transition: all 0.3s ease-in-out;
+}
+
+body::after{
+content: '';
+position: fixed ;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text contrast */
+z-index: -1;/* Keeps the overlay behind the content */
+}
+
+/* Navigation Bar */
+.navbar {
+background: linear-gradient(135deg, #2F5061, #1E3C72);
+padding: 8px 15px; /* Reduced padding for tighter layout */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 1000;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+
+/* Navigation Text */
+.navbar-brand {
+font-size: 1.5rem; /* Increased Size */
+font-weight: bold; /* More Prominent */
+color: #09b2ea; /* Soft Light Cyan */
+text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adds Depth */
+transition: color 0.3s ease-in-out; 
+text-shadow : 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Hover Effect */
+.navbar-dark .navbar-brand:hover {
+color: #FFFFFF; /* Bright White on Hover */
+text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7); /* Glow Effect */
+}
+/* Ensure the Welcome Navbar is thinner */
+.navbar.navbar-light {
+height: 35px;
+font-size: 16px;
+}
+/* Center Climate Cure Properly */
+.navbar .navbar-brand {
+flex-grow: 1;
+text-align: center;
+font-size: 1.5rem;
+font-weight: bold;
+display: block;
+}
+
+/* Space below the top navbar */
+body {
+padding-top: 60px; /* Adjust to avoid overlap */
+}
+
+/* Navbar Left and Right Containers */
+.navbar-left, .navbar-right {
+display: flex;
+align-items: center;
+gap: 10px; /* Consistent spacing between buttons */
+flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+}
+
+.navbar-left {
+margin-left: 10px; /* Offset from left edge */
+}
+
+.navbar-right {
+margin-right: 10px; /* Offset from right edge */
+}
+.navbar-expand-md .navbar-brand {
+  flex: 0 0 auto;
+  margin: 0 auto;
+}
+
+/* Light Mode Adjustments for Navbar */
+.light-mode .navbar {
+  background: linear-gradient(135deg, #4a90e2, #76c7c0) !important;
+}
+
+.light-mode .navbar-brand {
+  color: #ffeeba;
+}
+
+/* Custom Hamburger Icon Styling */
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e<path stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.weather-container {
+  margin-top: 80px;
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.weather-icon {
+  font-size: 50px;
+}
+
+
+.form-control {
+  border-radius: 25px; 
+  padding: 12px 15px; 
+  font-size: 14px;
+  transition: all 0.5s ease-in-out;
+  border: 2px solid #88c0D0; 
+  background: rgba(255,255,255,0.8); 
+  color: #333; 
+
+}
+.form-control:focus {
+  background-color: #e0f7fa; 
+  border-color: #1e3c72; 
+  box-shadow: 0 0 10px rgba(30, 60, 114, 0.5); 
+  outline: none;
+}
+
+
+/* Hover effect for the button */
+.btn-light {
+  border-radius: 20px; 
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(135deg, #3B7B8B, #5C99B3); 
+  color:white;
+  font-size: 14px;
+  padding: 12px 15px;
+  position : relative;
+  overflow: hidden;
+
+}
+
+.btn-light:hover {
+  background: linear-gradient(135deg, #2a5298, #1e3c72); 
+  transform: scale(1.05); 
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+/* Click Ripple Effect */
+.btn-light::after {
+content: "";
+position: absolute;
+width: 100px;
+height: 100px;
+background: rgba(255, 255, 255, 0.3);
+border-radius: 50%;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0);
+opacity: 0;
+transition: transform 0.4s, opacity 0.4s;
+}
+
+.btn-light:active::after {
+transform: translate(-50%, -50%) scale(1);
+opacity: 1;
+}
+
+
+
+.unit-toggle {
+  margin-top: 8px;
+  font-size: 13px;
+  background: #2F5061;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 15px;
+  transition: all 0.8s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;    
+}
+
+.unit-toggle:hover {
+background: #88c0D0;
+transform: scale(1.1);
+box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+.unit-toggle.active {
+background: #1e3c72;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+/* Click Ripple Effect */
+.unit-toggle::after {
+content: "";
+position: absolute;
+width: 80px;
+height: 80px;
+background: rgba(255, 255, 255, 0.2);
+border-radius: 50%;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0);
+opacity: 0;
+transition: transform 0.4s, opacity 0.4s;
+}
+
+.unit-toggle:active::after {
+transform: translate(-50%, -50%) scale(1);
+opacity: 1;
+}
+
+.welcome-label {
+background-size: cover;
+color: #fff;
+font-size: 18px;
+font-weight: bold;
+padding: 10px 20px;
+border-radius: 8px;
+display: inline-block;
+text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+  .additional-info p {
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  margin: 5px 0;
+}
+.table.forecast-table {
+background: rgba(255, 255, 255, 0.1) !important; /* Transparent glass effect */
+backdrop-filter: blur(8px); /* Glassmorphism effect */
+color: white !important;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+width: 100%;
+text-align: center;
+}
+
+/* Styling for table headers */
+.table.forecast-table th {
+background: rgba(255, 255, 255, 0.2) !important; /* Semi-transparent headers */
+padding: 12px;
+font-weight: bold;
+}
+
+/* Styling for table rows */
+.table.forecast-table td {
+padding: 10px;
+font-size: 1.1rem;
+}
+
+/* Hover effect for better UI */
+.table.forecast-table tbody tr:hover {
+background: rgba(255, 255, 255, 0.15) !important;
+transition: all 0.3s ease-in-out;
+}
+
+#hourlyForecastCarousel {
+max-width: 500px;
+margin: auto;
+}
+
+.carousel-inner {
+background: rgba(255, 255, 255, 0.2);
+border-radius: 12px;
+padding: 15px;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-item h4 {
+font-size: 1.5rem;
+color: white;
+}
+
+/* Highlighted Hourly Forecast Text (Temperature and Weather) */
+.temp-highlight {
+  font-size: 1.4rem; /* Slightly larger for more prominence */
+  font-weight: 700; /* Extra bold for visibility */
+  color: #ffffff; /* White for contrast on dark mode */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth in dark mode */
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+/* Light Mode Adjustments for Highlighted Text */
+.light-mode .temp-highlight {
+  color: #000000; /* Bold black for maximum contrast on light background */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); /* Stronger shadow for light mode */
+}
+/* Positioning the Logout Button */
+.logout-btn {
+position: absolute;
+top: 10px;
+left: 10px;
+padding: 6px 12px;
+font-size: 14px;
+font-weight: bold;
+background: linear-gradient(135deg, #d9534f, #c9302c); /* Red Gradient */
+color: white;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+text-align: center;
+display: inline-block;
+}
+
+.logout-btn:hover {
+background: linear-gradient(135deg, #c9302c, #b52b27);
+transform: scale(1.05);
+}
+
+
+.logout-container {
+display: flex;
+align-items: center;
+}
+
+
+#theme-toggle {
+position: fixed;
+top: 10px;
+right: 10px;
+padding: 5px 10px;
+font-size: 14px;
+font-weight: bold;
+background: linear-gradient(135deg, #2F5061, #1E3C72);
+color: white;
+border-radius: 8px;
+border: none;
+transition: all 0.3s ease-in-out;
+cursor: pointer;
+box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#theme-toggle:hover {
+background: linear-gradient(135deg, #1E3C72, #0D2C54);
+transform: scale(1.05);
+box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Navbar Styling - Ensures it stays at the top */
+.navbar {
+background: linear-gradient(135deg, #2F5061, #1E3C72); /* Deep Sea Blue */
+padding: 8px 0;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 1000; /* Ensures it appears above everything */
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+text-align: center;
+}
+
+/* Navbar Text */
+.navbar-brand {
+font-size: 1.5rem;
+font-weight: bold;
+color: #ffffff;
+letter-spacing: 1.5px;
+margin: 0;
+}
+
+.navbar-brand:hover {
+color: #FFD700; /* Gold hover color */
+}
+
+/* Background Image for Login & Register Pages */
+.auth-body {
+background: url('https://images.pexels.com/photos/30752587/pexels-photo-30752587/free-photo-of-fluffy-white-clouds-against-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1920') no-repeat center center fixed;
+background-size: cover;
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+margin: 0;
+filter:none;
+padding-top: 70px;
+}
+
+/* Make the Auth Container Look Modern */
+.auth-container {
+background: rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(5px);
+padding: 25px;
+border-radius: 10px;
+text-align: center;
+width: 400px;
+max-height: 80vh;
+overflow-y: auto;
+box-shadow: 0px 4px 10px rgb(255, 255, 255);
+}
+.auth-container::-webkit-scrollbar {
+width: 6px;
+}
+.auth-container::-webkit-scrollbar-thumb {
+background-color: rgba(255, 255, 255, 0.5);
+border-radius: 3px;
+}
+
+.auth-container::-webkit-scrollbar-track {
+background: transparent;
+}
+/* Input Styling */
+.auth-container input {
+width: 100%;
+padding: 12px;
+margin: 10px 0;
+border-radius: 8px;
+border: none;
+background: rgba(255, 255, 255, 0.8);
+color: black;
+font-size: 16px;
+outline: none;
+}
+
+/* Placeholder Styling */
+.auth-container input::placeholder {
+color: black;
+opacity: 1;
+}
+
+/* Button Styling */
+.auth-container button {
+width: 100%;
+padding: 12px;
+margin-top: 10px;
+border: none;
+border-radius: 8px;
+background: linear-gradient(135deg, #3B7B8B, #5C99B3);
+color: white;
+font-size: 16px;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+}
+
+.auth-container button:hover {
+background: linear-gradient(135deg, #2a5298, #1e3c72);
+transform: scale(1.05);
+}
+
+/* Link Styling */
+.auth-container a {
+color: #FFD700;
+text-decoration: none;
+font-weight: bold;
+}
+
+.auth-container a:hover {
+text-decoration: underline;
+}
+
+.password-container input {
+width: 100%;
+padding-right: 40px;
+height: 40px;
+font-size: 16px;
+border-radius: 5px;
+border: 1px solid #ccc;
+}
+
+/* Eye icon inside password input */
+.toggle-password {
+position: absolute;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+cursor: pointer;
+font-size: 16px;
+color: #555;
+}
+
+/* Change color on hover */
+.toggle-password:hover {
+color: #000;
+}
+
+
+/* Alert Message */
+.alert {
+padding: 15px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;
+}
+
+.alert-success {
+color: #155724;
+background-color: #d4edda;
+border-color: #c3e6cb;
+}
+
+.alert-danger {
+color: #721c24;
+background-color: #f8d7da;
+border-color: #f5c6cb;
+}
+/* Password container */
+/* Container for password input and toggle button */
+.password-container {
+position: relative;
+display: flex;
+align-items: center;
+width: 100%;
+}
+
+/* Input field */
+.password-container input {
+width: 100%;
+padding-right: 35px;  /* Ensure space for the eye icon */
+height: 40px;  /* Adjust height for uniformity */
+font-size: 16px;  /* Normal font size */
+border-radius: 5px;  /* Optional: rounded corners */
+}
+
+/* Favorite Cities Container */
+.favorite-cities-container {
+margin: 20px auto;
+max-width: 400px;
+padding: 12px;
+background: rgba(255, 255, 255, 0.12);
+border-radius: 15px;
+backdrop-filter: blur(6px);
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+text-align: center;
+transition: transform 0.3s ease-in-out;
+}
+
+.favorite-cities-container:hover {
+transform: scale(1.02);
+}
+
+.favorite-cities-container h3 {
+font-size: 1.5rem;
+color: #fff;
+margin-bottom: 12px;
+text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Favorite Cities List */
+.favorite-cities-list {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+justify-content: center;
+}
+
+/* Individual Favorite City */
+.favorite-city {
+display: flex;
+align-items: center;
+background: linear-gradient(135deg, #3B7B8B, #5C99B3);
+padding: 8px 16px;
+border-radius: 20px;
+font-size: 14px;
+font-weight: 500;
+color: white;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+position: relative;
+overflow: hidden;
+box-shadow: 0 3px 8px rgba(255, 255, 255, 0.2);
+}
+
+.favorite-city:hover {
+background: linear-gradient(135deg, #2a5298, #1e3c72);
+transform: scale(1.08);
+box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Remove Button */
+.remove-city {
+margin-left: 10px;
+font-size: 14px;
+color: #fff;
+font-weight: bold;
+cursor: pointer;
+opacity: 0.7;
+transition: opacity 0.3s ease-in-out;
+}
+
+.remove-city:hover {
+opacity: 1;
+color: #ff6b6b; /* Subtle red for removal indication */
+}
+
+/* No Favorites Message */
+.no-favorites {
+font-size: 14px;
+color: rgba(255, 255, 255, 0.7);
+font-style: italic;
+margin-top: 10px;
+}
+
+/* Add City Form */
+.add-city-form {
+display: flex;
+gap: 10px;
+margin-top: 15px;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.add-city-form .form-control {
+max-width: 220px;
+padding: 10px 14px;
+font-size: 14px;
+border-radius: 25px;
+border: 2px solid #88c0D0;
+background: rgba(255, 255, 255, 0.85);
+color: #333;
+transition: all 0.3s ease-in-out;
+}
+
+.add-city-form .form-control:focus {
+background-color: #e0f7fa;
+border-color: #1e3c72;
+box-shadow: 0 0 12px rgba(30, 60, 114, 0.6);
+outline: none;
+}
+
+.add-city-form .add-btn {
+padding: 10px 18px;
+font-size: 14px;
+border-radius: 20px;
+background: linear-gradient(135deg, #2ecc71, #27ae60);
+color: white;
+font-weight: bold;
+border: none;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+}
+
+.add-city-form .add-btn:hover {
+background: linear-gradient(135deg, #27ae60, #1e8449);
+transform: scale(1.08);
+box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
+}
+/* Light Mode Adjustments */
+.light-mode .favorite-cities-container {
+background: rgba(0, 0, 0, 0.15);
+}
+
+.light-mode .favorite-city {
+background: linear-gradient(135deg, #ffcc70, #ffeb99);
+color: black;
+}
+
+.light-mode .favorite-city:hover {
+background: linear-gradient(135deg, #ffaa00, #ffcc33);
+transform: scale(1.08);
+box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
+}
+
+.light-mode .remove-city {
+color: black;
+}
+
+.light-mode .remove-city:hover {
+color: #d9534f;
+}
+
+.light-mode .no-favorites {
+color: rgb(254, 254, 255);
+}
+
+.light-mode .add-city-form .form-control {
+background: rgba(255, 255, 255, 0.9);
+color: rgb(7, 7, 7);
+border-color: #ccc;
+}
+
+.light-mode .add-city-form .form-control:focus {
+background-color: #f0f0f0;
+border-color: #4a90e2;
+box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.weather-data {
+  margin-top: 20px;
+}
+
+.weather-data h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.weather-data p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* Logout Button */
+.logout-btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #d9534f, #c9302c);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  min-width: 80px;
+  position: static;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #c9302c, #b52b27);
+  transform: scale(1.05);
+}
+
+/* About Button */
+.btn-about {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6B7280, #9CA3AF);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  min-width: 80px;
+  position: static;
+}
+
+.btn-about:hover {
+  background: linear-gradient(135deg, #4B5563, #6B7280);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Weather Button */
+.btn-weather {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #F59E0B, #FBBF24);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  min-width: 90px;
+  position: static;
+}
+
+.btn-weather:hover {
+  background: linear-gradient(135deg, #D97706, #F59E0B);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Forecast Button */
+.btn-forecast {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #3B7B8B, #5C99B3);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  min-width: 90px;
+  position: static;
+}
+
+.btn-forecast:hover {
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #2F5061, #1E3C72);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  min-width: 100px;
+  position: static;
+  text-align: center;
+}
+
+#theme-toggle:hover {
+  background: linear-gradient(135deg, #1E3C72, #0D2C54);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+}
+
+/* Welcome Label in Navbar */
+.welcome-label {
+  background-size: cover;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+/* Light Mode Adjustments for Welcome Label */
+.light-mode .welcome-label {
+  color: #000;
+  background: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Light Mode Adjustments for Buttons */
+.light-mode .btn-about {
+  background: linear-gradient(135deg, #d1d5db, #e5e7eb);
+  color: black;
+}
+
+.light-mode .btn-about:hover {
+  background: linear-gradient(135deg, #9ca3af, #d1d5db);
+}
+
+.light-mode .btn-weather {
+  background: linear-gradient(135deg, #fcd34d, #fef08a);
+  color: black;
+}
+
+.light-mode .btn-weather:hover {
+  background: linear-gradient(135deg, #f59e0b, #fcd34d);
+}
+
+.light-mode .btn-forecast {
+  background: linear-gradient(135deg, #ffcc70, #ffeb99);
+  color: black;
+}
+
+.light-mode .btn-forecast:hover {
+  background: linear-gradient(135deg, #ffaa00, #ffcc33);
+}
+
+.light-mode #theme-toggle {
+  background: linear-gradient(135deg, #ffcc70, #ffeb99);
+  color: black;
+}
+
+.light-mode #theme-toggle:hover {
+  background: linear-gradient(135deg, #ffaa00, #ffcc33);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+      padding: 8px 10px;
+      flex-wrap: wrap;
+  }
+
+  .navbar-center {
+      flex: 0 0 auto;
+      margin: 0 auto;
+  }
+
+  .navbar-brand {
+      font-size: 1.2rem;
+  }
+
+  .navbar-left, .navbar-right {
+      gap: 8px;
+      flex-wrap: nowrap;
+  }
+
+  .welcome-label {
+      font-size: 12px;
+      padding: 4px 8px;
+      min-width: 100px;
+  }
+
+  .logout-btn {
+      margin: 5px 0;
+      padding: 4px 8px;
+      font-size: 12px;
+      min-width: 70px;
+  }
+
+  .btn-about {
+      margin: 5px 0;
+      padding: 4px 8px;
+      font-size: 12px;
+      min-width: 70px;
+  }
+
+  .btn-weather {
+      margin: 5px 0;
+      padding: 4px 8px;
+      font-size: 12px;
+      min-width: 80px;
+  }
+
+  .btn-forecast {
+      margin: 5px 0;
+      padding: 4px 8px;
+      font-size: 12px;
+      min-width: 80px;
+  }
+
+  #theme-toggle {
+      margin: 5px 0;
+      padding: 4px 8px;
+      font-size: 12px;
+      min-width: 90px;
+  }
+
+  .navbar .container-fluid {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+      font-size: 1rem;
+  }
+
+  .navbar-left, .navbar-right {
+      gap: 5px;
+      flex-wrap: wrap;
+  }
+
+  .welcome-label {
+      font-size: 10px;
+      padding: 3px 6px;
+      min-width: 90px;
+  }
+
+  .logout-btn {
+      padding: 3px 6px;
+      font-size: 10px;
+      min-width: 60px;
+  }
+
+  .btn-about {
+      padding: 3px 6px;
+      font-size: 10px;
+      min-width: 60px;
+  }
+
+  .btn-weather {
+      padding: 3px 6px;
+      font-size: 10px;
+      min-width: 70px;
+  }
+
+  .btn-forecast {
+      padding: 3px 6px;
+      font-size: 10px;
+      min-width: 70px;
+  }
+
+  #theme-toggle {
+      padding: 3px 6px;
+      font-size: 10px;
+      min-width: 80px;
+  }
+
+  .navbar .container-fluid {
+      justify-content: center;
+  }
+}
+
+/* Rest of your styles unchanged below this point */
+.weather-container {
+  margin-top: 80px;
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ... (remaining styles like .weather-icon, .form-control, etc., remain unchanged) */
+
+.loading {
+  display: none;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.weather-data {
+  margin-top: 20px;
+}
+
+.weather-data h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.weather-data p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* About Section Styling */
+#about-section .weather-container {
+  background: rgba(255, 255, 255, 0.15);
+  text-align: left;
+}
+
+#about-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#about-section p {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #fff;
+}
+
+#about-section p strong {
+  color: #e0f7fa;
+}
+
+.btn-location {
+padding: 6px 10px;
+min-width: 40px;
+}
+.container .btn-location {
+padding: 6px 10px;
+min-width: 40px;
+}
+/* Enhanced Text Visibility in Light Mode */
+.light-mode .weather-data h3,
+.light-mode .weather-data p,
+.light-mode .additional-info p,
+.light-mode #hourly-forecast h3,
+.light-mode #five-day-forecast h3 {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); /* Stronger shadow for readability */
+}
+
+.light-mode .carousel-item h4 {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Stronger shadow for carousel text */
+}
+
+.light-mode .temp-highlight {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Stronger shadow for temperature highlights */
+}
+/* Hourly Forecast and 5-Day Forecast Headings (Bold and Highly Readable) */
+#hourly-forecast h3, #five-day-forecast h3 {
+  font-size: 1.5rem;
+  font-weight: 400; 
+  color: #ffffff; /* White for contrast on dark mode */
+  margin-bottom: 25px;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6); /* Stronger, larger shadow for depth */
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+/* Light Mode Adjustments for Forecast Headings */
+.light-mode #hourly-forecast h3, .light-mode #five-day-forecast h3 {
+  color: #000000; /* Bold black for maximum contrast on light background */
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5); /* Stronger shadow for light mode */
+}
+
+/* Dark Mode Adjustments for Forecast Headings */
+.dark-mode #hourly-forecast h3, .dark-mode #five-day-forecast h3 {
+  color: #ffffff; /* White for maximum contrast on dark background */
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6); /* Stronger shadow for dark mode */
+}

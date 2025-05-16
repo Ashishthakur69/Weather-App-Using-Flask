@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Climate Cure</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Main Navigation Bar with Hamburger Menu for Mobile/Minimized Desktop -->
+    <nav class="navbar navbar-dark navbar-expand-md" style="background: linear-gradient(135deg, #2F5061, #1E3C72);">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Centered Climate Cure (Visible on all screens) -->
+            <span class="navbar-brand text-white fw-bold mx-auto d-block d-md-none">☁️ CLIMATE CURE</span>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <div class="navbar-left d-flex align-items-center flex-column flex-md-row">
+                    {% if session['username'] %}
+                    <div class="welcome-label text-white me-2 mb-2 mb-md-0">👋 Welcome, {{ session['username'] }}!</div>
+                    <a href="{{ url_for('weather') }}" class="btn btn-light btn-sm px-3 me-2 mb-2 mb-md-0">Back to Main Page</a>
+                    {% endif %}
+                </div>
+                <span class="navbar-brand text-white fw-bold d-none d-md-block">☁️ CLIMATE CURE</span>
+                <div class="navbar-right d-flex align-items-center flex-column flex-md-row">
+                    <button id="theme-toggle" class="btn btn-dark btn-sm px-3 mb-2 mb-md-0">☀️ Light Mode</button>
+                    {% if session['username'] %}
+                    <a href="{{ url_for('logout') }}" class="btn logout-btn mb-2 mb-md-0">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-4">
+        <div class="weather-container p-3">
+            <h1>ℹ️ About This Project</h1>
+            <p>
+                "Climate Cure" is a weather application developed as a college project to provide users with real-time weather information, hourly forecasts, and 5-day predictions. Built using Flask, JavaScript, and the OpenWeatherMap API, it features user authentication, favorite city management, and a responsive design with light/dark mode support.
+            </p>
+            <p><strong>Developed by:</strong> Ashish Thakur</p>
+            <p><strong>Course:</strong> BCA</p>
+            <p><strong>College:</strong> Sidharth Govt. Degree College NADAUN</p>
+            <p><strong>Technologies:</strong> Python (Flask), HTML, CSS, JavaScript, Bootstrap, MYSQL</p>
+            <p><strong>API:</strong> OpenWeatherMap</p>
+            <p>This project aims to demonstrate skills in web development, API integration, and user interface design. Feel free to explore and provide feedback!</p>
+        </div>
+
+        <!-- Feedback/Suggestion Form -->
+        <div class="weather-container p-3 mt-4">
+            <h2>📝 Feedback or Suggestions</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    {% if category in ['success_feedback', 'danger_feedback'] %}
+                        <div class="alert alert-{{ 'success' if category == 'success_feedback' else 'danger' }}">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('about') }}">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Feedback or Suggestion:</label>
+                    <textarea class="form-control" id="feedback" name="feedback" rows="5" placeholder="Share your thoughts..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-light">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

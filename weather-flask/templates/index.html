@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MY WEATHER</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  
+<!-- Main Navigation Bar with Hamburger Menu for Mobile/Minimized Desktop -->
+<nav class="navbar navbar-dark navbar-expand-md" style="background: linear-gradient(135deg, #2F5061, #1E3C72);">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Centered Climate Cure (Visible on all screens) -->
+        <span class="navbar-brand text-white fw-bold mx-auto d-block d-md-none">☁️ CLIMATE CURE</span>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <div class="navbar-left d-flex align-items-center">
+                {% if session['username'] %}
+                <div class="welcome-label text-white me-2">👋 Welcome, {{ session['username'] }}!</div>
+                <button id="weather-btn" class="btn btn-weather btn-sm px-3">Weather 🌤️</button>
+                <button id="forecast-btn" class="btn btn-forecast btn-sm px-3">Forecast 📅</button>
+                {% endif %}
+            </div>
+            <span class="navbar-brand text-white fw-bold d-none d-md-block">☁️ CLIMATE CURE</span>
+            <div class="navbar-right d-flex align-items-center">
+                <a href="{{ url_for('about') }}" class="btn btn-about btn-sm px-3">About ℹ️</a>
+                <button id="theme-toggle" class="btn btn-dark btn-sm px-3">☀️ Light Mode</button>
+                {% if session['username'] %}
+                <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<button onclick="getLocation()">📍 Use My Location</button>
+
+<div class="favorite-cities-container">
+    <h3>⭐ Favorite Cities</h3>
+    <div class="favorite-cities-list">
+        {% if current_user.is_authenticated and current_user.favorites %}
+            {% for city in current_user.favorites.split(",") %}
+                <span class="favorite-city" onclick="fetchWeather('{{ city }}')" title="Click to view weather for {{ city }}">
+                    {{ city }}
+                    <span class="remove-city" onclick="removeFavorite('{{ city }}', event)">✖</span>
+                </span>
+            {% endfor %}
+        {% else %}
+            <p class="no-favorites">No favorite cities added yet.</p>
+        {% endif %}
+    </div>
+    <div class="add-city-form">
+        <input type="text" id="cityInput" class="form-control" placeholder="Add a favorite city" aria-label="City name">
+        <button class="btn btn-light add-btn" onclick="addCity()">Add</button>
+    </div>
+</div>
+
+<div id="weather-container" class="container mt-5 pt-4">
+    <div class="weather-container">
+        <h4>Check the Weather</h4>
+        <form onsubmit="event.preventDefault(); fetchWeather(document.querySelector('input[name=city]').value); document.querySelector('input[name=city]').value = ''">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="city" placeholder="Enter city name" required>
+                <button class="btn btn-light" type="submit">Search</button>
+            </div>
+        </form>
+        <div class="loading" style="display: none;"><span class="spinner">⏳</span> Loading...</div>
+        <div class="weather-data">
+            {% if data and 'weather_desc' in data %}
+            <div>
+                <h3>{{ data.cityname | title }}</h3>
+                <div class="weather-icon">
+                    {% if "clear" in data.weather_desc.lower() %}☀️
+                    {% elif "cloud" in data.weather_desc.lower() %}☁️
+                    {% elif "rain" in data.weather_desc.lower() %}🌧️
+                    {% elif "storm" in data.weather_desc.lower() %}⛈️
+                    {% elif "snow" in data.weather_desc.lower() %}❄️
+                    {% elif "mist" in data.weather_desc.lower() %}🌫️
+                    {% else %}🌡️{% endif %}
+                </div>
+                <h4 id="temperature">{{ data.temp_cel }}°C</h4>
+                <button class="btn btn-secondary unit-toggle" onclick="convertTemperature()">Convert °C/°F</button>
+                <p>{{ data.weather_desc | capitalize }}</p>
+                <p><strong>Humidity:</strong> {{ data.humidity }}%</p>
+                <p><strong>Pressure:</strong> {{ data.pressure_hpa }} hPa</p>
+                <p><strong>Wind Speed:</strong> {{ data.wind_speed_mps }} m/s / {{ data.wind_speed_mph }} mph</p>
+                <p><strong>Visibility:</strong> {{ data.visibility }} km</p>
+                <p><strong>Sunrise:</strong> {{ data.sunrise }}</p>
+                <p><strong>Sunset:</strong> {{ data.sunset }}</p>
+                <div class="additional-info">
+                    <p><strong>Country Code:</strong> {{ data.country_code }}</p>
+                    <p><strong>Coordinates:</strong> {{ data.coordinate }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div id="hourly-forecast" class="carousel slide mt-4" data-bs-ride="carousel">
+    <h3>🌡️ Hourly Forecast</h3>
+    <div class="carousel-inner">
+        {% for hour in hourly_forecast %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="weather-container p-3">
+                <h4>{{ hour.time }}</h4>
+                <p class="temp-highlight">{{ hour.temp_cel }}°C / {{ hour.temp_fah }}°F</p>
+                <p>{{ hour.weather.capitalize() }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#hourly-forecast" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hourly-forecast" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div id="five-day-forecast" class="container mt-4">
+    <h3 class="text-center">📅 5-Day Forecast</h3>
+    <div class="weather-container p-3">
+        <table class="table forecast-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temperature (°C)</th>
+                    <th>Weather</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in forecast %}
+                <tr>
+                    <td>{{ day.date | strftime('%d-%m-%y') if day.date is not string else day.date }}</td>
+                    <td class="temp-highlight">{{ day.temp_cel }}°C</td>
+                    <td>
+                        {% if "clear" in day.weather.lower() %}
+                            ☀️ Clear
+                        {% elif "cloud" in day.weather.lower() %}
+                            ☁️ Cloudy
+                        {% elif "rain" in day.weather.lower() %}
+                            🌧️ Rainy
+                        {% elif "storm" in day.weather.lower() %}
+                            ⛈️ Stormy
+                        {% elif "snow" in day.weather.lower() %}
+                            ❄️ Snowy
+                        {% elif "mist" in day.weather.lower() %}
+                            🌫️ Misty
+                        {% else %}
+                            🌡️ {{ day.weather.capitalize() }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
